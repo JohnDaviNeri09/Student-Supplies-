@@ -373,4 +373,28 @@
     async function openModal(id, title, price) {
       selectedProductId = id;
       document.getElementById('modal-product-title').innerText = title;
-  
+  document.getElementById('modal-product-price').innerText = `₱${parseFloat(price).toLocaleString()}`;
+      document.getElementById('review-modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('review-modal').classList.add('hidden');
+    }
+
+    async function handleAddReview(e) {
+      e.preventDefault();
+      if (!currentUser) return alert('Please sign in to post a review.');
+      const rating = parseInt(document.getElementById('rev-rating').value);
+      const comment = document.getElementById('rev-comment').value;
+
+      const { error } = await supabaseClient.from('reviews').insert([{ product_id: selectedProductId, user_id: currentUser.id, rating, comment }]);
+      if (error) alert(error.message);
+      else {
+        alert('Review submitted!');
+        document.getElementById('rev-comment').value = '';
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>
