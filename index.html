@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OfficePro - Business Supplies & Gear</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#f0f9ff', 500: '#0284c7', 600: '#0369a1', 900: '#0c4a6e' }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans min-h-screen flex flex-col justify-between">
+
+  <!-- Voiceflow AI Chatbot Widget -->
+  <script type="text/javascript">
+    (function(d, t) {
+        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        v.onload = function() {
+          window.voiceflow.chat.load({
+            verify: { projectID: '‎6a0fee3e3b51b00500e3c356' },
+            url: 'https://general-runtime.voiceflow.com',
+            versionID: 'production'
+          });
+        }
+        v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+    })(document, 'script');
+  </script>
+
+  <!-- 1. Header & Navigational Links -->
+  <header class="sticky top-0 z-40 bg-slate-900 text-white shadow-xl">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div onclick="showSection('home')" class="cursor-pointer text-2xl font-black tracking-tight text-blue-500 flex items-center gap-1">
+        <span>OFFICE</span><span class="text-white">PRO</span>
+      </div>
+      <nav class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide">
+        <button onclick="showSection('home')" class="hover:text-blue-400 transition">Home</button>
+        <button onclick="showSection('store')" class="hover:text-blue-400 transition">Store Page</button>
+        <button onclick="showSection('about')" class="hover:text-blue-400 transition">About Us</button>
+        <button onclick="showSection('contacts')" class="hover:text-blue-400 transition">Contacts</button>
+        <button id="nav-dashboard" onclick="showSection('dashboard')" class="hidden hover:text-blue-400 transition">Seller Dashboard</button>
+      </nav>
+      <div id="auth-buttons">
+        <button onclick="showSection('auth')" class="px-5 py-2.5 text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition shadow-md">Sign In / Register</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Sections Container -->
+  <main class="mb-auto">
+
+    <!-- HOME SECTION (Rule of Thirds Hero + Features + High Contrast) -->
+    <section id="sec-home" class="space-y-16">
+      <div class="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+        <!-- 2/3 Grid Column -->
+        <div class="md:col-span-2 space-y-6">
+          <span class="text-blue-600 font-bold text-xs uppercase tracking-widest bg-blue-100 px-3.5 py-1.5 rounded-full">Ergonomic Infrastructure</span>
+          <h1 class="text-5xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+            High-Performance Gear for Modern Workspaces.
+          </h1>
+          <p class="text-lg text-slate-600 max-w-xl leading-relaxed">
+            Equip your enterprise with certified commercial office supplies, modular desks, and high-precision equipment.
+          </p>
+          <!-- 3. Call to Action (CTA) -->
+          <div class="pt-4 flex flex-wrap gap-4">
+            <button onclick="showSection('store')" class="px-8 py-4 bg-blue-600 text-white font-bold rounded-lg shadow-xl hover:bg-blue-700 transition">
+              Explore Store Catalog
+            </button>
+            <button onclick="showSection('auth')" class="px-8 py-4 bg-slate-200 text-slate-800 font-bold rounded-lg hover:bg-slate-300 transition">
+              Start Selling Today
+            </button>
+          </div>
+        </div>
+        <!-- 1/3 Grid Column -->
+        <div class="md:col-span-1">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600" alt="Workspace" class="rounded-2xl shadow-2xl object-cover h-96 w-full border border-slate-200" />
+        </div>
+      </div>
+
+      <!-- 6. Features Body Section -->
+      <div class="bg-white py-20 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+          <h2 class="text-3xl font-extrabold text-center text-slate-900 mb-16">Platform Core Capabilities</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="p-8 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+              <div class="w-12 h-12 bg-blue-600 text-white flex items-center justify-center font-bold text-xl rounded-xl">₱</div>
+              <h3 class="text-xl font-bold text-slate-900">PayMongo GCash Gateway</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">Automated transaction processing with instant GCash wallet integration and real-time payment state webhooks.</p>
+            </div>
+            <div class="p-8 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+              <div class="w-12 h-12 bg-blue-600 text-white flex items-center justify-center font-bold text-xl rounded-xl">🤖</div>
+              <h3 class="text-xl font-bold text-slate-900">Voiceflow AI Support</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">Integrated conversational AI assistant designed to handle order tracking, product search, and instant support.</p>
+            </div>
+            <div class="p-8 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+              <div class="w-12 h-12 bg-blue-600 text-white flex items-center justify-center font-bold text-xl rounded-xl">🏪</div>
+              <h3 class="text-xl font-bold text-slate-900">Multi-Vendor Economy</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">List commercial supplies directly to buyers with integrated seller analytics and transactional tracking.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STORE SECTION -->
+    <section id="sec-store" class="hidden max-w-7xl mx-auto px-6 py-12">
+      <h2 class="text-3xl font-black mb-8 text-slate-900">Commercial Catalog</h2>
+      <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </section>
+
+    <!-- AUTH SECTION (Login / Register / GCash) -->
+    <section id="sec-auth" class="hidden max-w-md mx-auto px-6 py-16">
+      <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-200 space-y-6">
+        <h2 id="auth-title" class="text-2xl font-black text-slate-900 text-center">Sign In</h2>
+        <form onsubmit="handleAuth(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Email Address</label>
+            <input type="email" id="auth-email" required class="w-full p-3 border border-slate-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Password</label>
+            <input type="password" id="auth-password" required class="w-full p-3 border border-slate-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div id="gcash-field" class="hidden">
+            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">GCash Mobile Number</label>
+            <input type="text" id="auth-gcash" placeholder="0917XXXXXXX" class="w-full p-3 border border-slate-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <button type="submit" id="auth-submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-md transition">Login</button>
+        </form>
+        <div class="text-center pt-2">
+          <button onclick="toggleAuthMode()" id="auth-toggle" class="text-xs font-bold text-blue-600 hover:underline">Don't have an account? Register here</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD SECTION (Seller/Buyer History & Product Posting) -->
+    <section id="sec-dashboard" class="hidden max-w-7xl mx-auto px-6 py-12 space-y-12">
+      <!-- Post Product Form -->
+      <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+        <h2 class="text-2xl font-black text-slate-900">Post Product for Sale</h2>
+        <form onsubmit="handleCreateProduct(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input type="text" id="prod-title" placeholder="Product Title" required class="p-3 border rounded-lg text-sm" />
+          <input type="number" step="0.01" id="prod-price" placeholder="Price (PHP)" required class="p-3 border rounded-lg text-sm" />
+          <input type="url" id="prod-image" placeholder="Image URL" required class="p-3 border rounded-lg text-sm md:col-span-2" />
+          <textarea id="prod-desc" placeholder="Description" required class="p-3 border rounded-lg text-sm md:col-span-2 h-24"></textarea>
+          <button type="submit" class="md:col-span-2 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-lg transition">Publish Listing</button>
+        </form>
+      </div>
+
+      <!-- Histories Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <h3 class="text-xl font-bold text-slate-900">Seller Sales History</h3>
+          <div id="sales-history-list" class="space-y-3 text-xs text-slate-500">No sales recorded yet.</div>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <h3 class="text-xl font-bold text-slate-900">Buyer Purchase History</h3>
+          <div id="purchase-history-list" class="space-y-3 text-xs text-slate-500">No purchases made yet.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT & CONTACTS -->
+    <section id="sec-about" class="hidden max-w-4xl mx-auto px-6 py-16 text-slate-700 space-y-4 leading-relaxed">
+      <h2 class="text-3xl font-black text-slate-900">About OfficePro</h2>
+      <p>OfficePro delivers certified high-performance office furniture, machinery, and ergonomic productivity infrastructure across the Philippines with instant digital checkout rails like GCash.</p>
+    </section>
+
+    <section id="sec-contacts" class="hidden max-w-4xl mx-auto px-6 py-16 text-slate-700 space-y-4 leading-relaxed">
+      <h2 class="text-3xl font-black text-slate-900">Contact Support</h2>
+      <p>Email: enterprise@officepro.ph | Phone: +63 (02) 8800-0000</p>
+    </section>
+  </main>
+
+  <!-- Product Reviews & Ratings Modal -->
+  <div id="review-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 space-y-6 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-start">
+        <div>
+          <h3 id="modal-product-title" class="font-bold text-xl text-slate-900"></h3>
+          <p id="modal-product-price" class="text-slate-500 text-xs"></p>
+        </div>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 font-bold">✕</button>
+      </div>
+
+      <!-- Star Rating Reviews List -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-bold uppercase text-slate-500">Customer Ratings & Reviews</h4>
+        <div id="reviews-list" class="space-y-2"></div>
+      </div>
+
+      <!-- Review Input Form -->
+      <form onsubmit="handleAddReview(event)" class="space-y-3 pt-4 border-t border-slate-100">
+        <h4 class="text-xs font-bold uppercase text-slate-700">Write a Review</h4>
+        <div class="flex items-center gap-2">
+          <label class="text-xs font-semibold text-slate-600">Rating:</label>
+          <select id="rev-rating" class="p-2 border rounded-lg text-xs">
+            <option value="5">5 Stars ★★★★★</option>
+            <option value="4">4 Stars ★★★★</option>
+            <option value="3">3 Stars ★★★</option>
+            <option value="2">2 Stars ★★</option>
+            <option value="1">1 Star ★</option>
+          </select>
+        </div>
+        <textarea id="rev-comment" required placeholder="Write your thoughts..." class="w-full p-3 border rounded-lg text-xs h-20"></textarea>
+        <button type="submit" class="w-full py-2 bg-slate-900 text-white font-bold text-xs rounded-lg hover:bg-slate-800">Submit Review</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4 & 5. Sitemap & Footer -->
+  <footer class="bg-slate-900 text-slate-400 py-16 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8 mb-12 text-xs">
+      <div>
+        <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Navigation</h4>
+        <ul class="space-y-2">
+          <li><button onclick="showSection('home')" class="hover:text-white">Home</button></li>
+          <li><button onclick="showSection('store')" class="hover:text-white">Store Page</button></li>
+          <li><button onclick="showSection('about')" class="hover:text-white">About Us</button></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Account Portal</h4>
+        <ul class="space-y-2">
+          <li><button onclick="showSection('auth')" class="hover:text-white">Register GCash Account</button></li>
+          <li><button onclick="showSection('dashboard')" class="hover:text-white">Seller Dashboard</button></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Sitemap</h4>
+        <ul class="space-y-2 font-mono text-[11px] text-slate-500">
+          <li>/index.html (Home & App Core)</li>
+          <li>/api/checkout (PayMongo Payment API)</li>
+          <li>/api/webhooks/paymongo (Webhook Handler)</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold mb-4 uppercase tracking-wider">Design Compliance</h4>
+        <p class="leading-relaxed">Engineered using strict Rule of Thirds alignment, high color contrast ratios, clear typographic hierarchy, and balanced whitespace layout structure.</p>
+      </div>
+    </div>
+    <div class="text-center text-xs text-slate-600 pt-8 border-t border-slate-800">
+      © 2026 OfficePro Inc. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Frontend Logic -->
+  <script>
+    const SUPABASE_URL = "https://ugdhyjweowthxnbzwgix.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVnZGh5andlb3d0aHhuYnp3Z2l4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5MTU0NjAsImV4cCI6MjEwMzQ5MTQ2MH0.DovD1N73UeORpiP7kzgY_M3AcGndNQQDF-QzF-pFPL8";
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    let isRegisterMode = false;
+    let selectedProductId = null;
+    let currentUser = null;
+
+    window.onload = async () => {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (session) {
+        currentUser = session.user;
+        updateAuthUI();
+      }
+      loadProducts();
+    };
+
+    function showSection(id) {
+      ['home', 'store', 'auth', 'dashboard', 'about', 'contacts'].forEach(sec => {
+        document.getElementById(`sec-${sec}`).classList.add('hidden');
+      });
+      document.getElementById(`sec-${id}`).classList.remove('hidden');
+      if (id === 'dashboard') loadDashboardData();
+    }
+
+    function toggleAuthMode() {
+      isRegisterMode = !isRegisterMode;
+      document.getElementById('auth-title').innerText = isRegisterMode ? 'Register GCash Account' : 'Sign In';
+      document.getElementById('auth-submit').innerText = isRegisterMode ? 'Complete Registration' : 'Login';
+      document.getElementById('auth-toggle').innerText = isRegisterMode ? 'Already have an account? Sign In' : "Don't have an account? Register here";
+      document.getElementById('gcash-field').classList.toggle('hidden', !isRegisterMode);
+    }
+
+    async function handleAuth(e) {
+      e.preventDefault();
+      const email = document.getElementById('auth-email').value;
+      const password = document.getElementById('auth-password').value;
+      const gcash = document.getElementById('auth-gcash').value;
+
+      if (isRegisterMode) {
+        const { error } = await supabaseClient.auth.signUp({
+          email, password, options: { data: { gcash_number: gcash } }
+        });
+        if (error) alert(error.message);
+        else alert('Registration successful! Please log in.');
+      } else {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        if (error) alert(error.message);
+        else {
+          currentUser = data.user;
+          updateAuthUI();
+          showSection('home');
+        }
+      }
+    }
+
+    function updateAuthUI() {
+      document.getElementById('nav-dashboard').classList.remove('hidden');
+      document.getElementById('auth-buttons').innerHTML = `
+        <button onclick="handleLogout()" class="px-4 py-2 text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white rounded-lg transition">Logout</button>
+      `;
+    }
+
+    async function handleLogout() {
+      await supabaseClient.auth.signOut();
+      currentUser = null;
+      location.reload();
+    }
+
+    async function loadProducts() {
+      const { data: products } = await supabaseClient.from('products').select('*').order('created_at', { ascending: false });
+      const grid = document.getElementById('product-grid');
+      grid.innerHTML = (products || []).map(p => `
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-lg transition">
+          <img src="${p.image_url}" alt="${p.title}" class="h-56 w-full object-cover" />
+          <div class="p-6 space-y-4">
+            <h3 class="font-bold text-xl text-slate-900 leading-snug">${p.title}</h3>
+            <p class="text-slate-500 text-xs line-clamp-2">${p.description}</p>
+            <p class="text-2xl font-black text-blue-600">₱${parseFloat(p.price).toLocaleString()}</p>
+            <div class="grid grid-cols-2 gap-3 pt-2">
+              <button onclick="openModal('${p.id}', '${p.title}', ${p.price})" class="py-2.5 text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg transition">Reviews</button>
+              <button onclick="handleCheckout(${p.price}, '${p.title}', '${p.id}')" class="py-2.5 text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition shadow-sm">Buy via GCash</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function handleCheckout(amount, title, productId) {
+      if (!currentUser) return alert('Please sign in to make a purchase.');
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount, description: title, buyerId: currentUser.id, productId })
+      });
+      const data = await res.json();
+      if (data.checkoutUrl) window.location.href = data.checkoutUrl;
+      else alert('Payment initialization failed.');
+    }
+
+    async function handleCreateProduct(e) {
+      e.preventDefault();
+      const title = document.getElementById('prod-title').value;
+      const price = parseFloat(document.getElementById('prod-price').value);
+      const image_url = document.getElementById('prod-image').value;
+      const description = document.getElementById('prod-desc').value;
+
+      const { error } = await supabaseClient.from('products').insert([{ seller_id: currentUser.id, title, price, image_url, description }]);
+      if (error) alert(error.message);
+      else {
+        alert('Product published!');
+        loadProducts();
+        showSection('store');
+      }
+    }
+
+    async function openModal(id, title, price) {
+      selectedProductId = id;
+      document.getElementById('modal-product-title').innerText = title;
+  
